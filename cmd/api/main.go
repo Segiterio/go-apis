@@ -2,6 +2,7 @@ package main
 
 import (
 	"example/backend/internal/config"
+	"example/backend/internal/handlers"
 	"log"
 	"net/http"
 	"time"
@@ -15,12 +16,7 @@ func main() {
 	// create new server
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-
-		w.Write([]byte(`{"status":"ok"}`))
-	})
+	mux.HandleFunc("GET /health", handlers.Health)
 
 	server := http.Server{
 		Addr:         ":" + cfg.Port,
