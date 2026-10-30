@@ -21,6 +21,7 @@ type ListingHandlers struct {
 	db *sql.DB
 }
 
+// dependency injection handler
 func NewListingHandler(db *sql.DB) *ListingHandlers {
 	return &ListingHandlers{
 		db: db,
@@ -28,10 +29,12 @@ func NewListingHandler(db *sql.DB) *ListingHandlers {
 }
 
 func (lh ListingHandlers) List(w http.ResponseWriter, r *http.Request) {
-	rows, err := lh.db.Query(`SELECT id, title, description, price, city, created_at 
-		                       FROM listings
-							   ORDER BY created_at DESC
-							   LIMIT 100`)
+	ctx := r.Context()
+	rows, err := lh.db.QueryContext(ctx,
+		`SELECT id, title, description, price, city, created_at,
+		    FROM listings
+			ORDER BY created_at DESC
+			LIMIT 100`)
 	if err != nil {
 		log.Printf("Query: %v", err)
 		http.Error(w, "Internal error", http.StatusInternalServerError)
@@ -64,8 +67,9 @@ func (lh ListingHandlers) List(w http.ResponseWriter, r *http.Request) {
 }
 
 func (lh ListingHandlers) Delete(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
 	id := r.PathValue("id")
-	_, err := lh.db.Exec(`DELETE FROM listings WHERE id = $1`, id)
+	_, err := lh.db.ExecContext(ctx, `DELETE FROM listings WHERE id = $1`, id)
 	if err != nil {
 		log.Printf("Delete List: %v", err)
 		http.Error(w, "Internal error", http.StatusInternalServerError)
