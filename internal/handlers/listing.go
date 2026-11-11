@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"example/backend/internal/httpx"
 	"example/backend/internal/middleware"
 	"log/slog"
@@ -72,6 +73,49 @@ func (lh *ListingHandlers) List(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	_ = json.NewEncoder(w).Encode(listings)
+}
+
+func (lh *ListingHandlers) ListItemByID(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	id := r.PathValue("id")
+	xRequestID := middleware.GetRequestID(ctx)
+
+	var l listing
+
+	err := lh.db.QueryRowContext(ctx,
+		`SELECT id, title, description, price, city, created_at
+         FROM listings
+         WHERE id = $1
+         LIMIT 1`,
+		id,
+	).Scan(
+		&l.ID,
+		&l.Title,
+		&l.Description,
+		&l.Price,
+		&l.City,
+		&l.CreatedAt,
+	)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			http.Error(w, "Listing not found", http.StatusNotFound)
+			return
+		}
+
+		lh.logger.Error("QueryRowContext", "err", err, "x-request-id", xRequestID)
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		return
+	}
+
+	lh.logger.Info("Get listing by ID", "x-request-id", xRequestID)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(l); err != nil {
+		lh.logger.Error("json.Encode", "err", err, "x-request-id", xRequestID)
+	}
 }
 
 func (lh *ListingHandlers) Delete(w http.ResponseWriter, r *http.Request) {

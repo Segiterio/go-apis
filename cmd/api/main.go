@@ -37,6 +37,7 @@ func main() {
 
 	mux.HandleFunc("GET /health", handlers.Health)
 	mux.HandleFunc("GET /listings", lh.List)
+	mux.HandleFunc("GET /listings/{id}", lh.ListItemByID)
 	mux.HandleFunc("DELETE /listings/{id}", lh.Delete)
 	mux.HandleFunc("POST /listings", lh.Create)
 
