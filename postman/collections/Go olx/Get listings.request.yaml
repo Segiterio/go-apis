@@ -1,0 +1,42 @@
+$kind: http-request
+url: "{{BASE_URL}}/listings"
+method: GET
+body:
+  type: json
+  content: "{\r
+
+    \    \"constraints\": {\r
+
+    \        \"target\": {\r
+
+    \            \"type\": \"int\",\r
+
+    \            \"min\": -1000000000,\r
+
+    \            \"max\": 100000000\r
+
+    \        },\r
+
+    \        \"nums\": {\r
+
+    \            \"type\": \"intArray\",\r
+
+    \            \"minLenght\": 1,\r
+
+    \            \"maxLength\": 200,\r
+
+    \            \"min\": -10000,\r
+
+    \            \"max\": 10000\r
+
+    \        }\r
+
+    \    },\r
+
+    \    \"numberOfOutputs\": 6\r
+
+    }"
+auth:
+  type: noauth
+settings: {}
+order: 2000

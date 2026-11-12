@@ -1,0 +1,7 @@
+workspace:
+  id: e1493985-6d94-40e9-b299-2ec227bd5a04
+cloudResources:
+  collections:
+    ../postman/collections/Go olx: 26811764-37702e6b-e483-4089-a8ff-a6c24be472e8
+  environments:
+    ../postman/environments/Go olx.environment.yaml: 26811764-5e191c9b-b535-440d-b0f2-23d7b34e1c5f

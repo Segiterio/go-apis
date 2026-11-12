@@ -1,0 +1,70 @@
+$kind: http-request
+url: "{{BASE_URL}}/listings"
+method: POST
+body:
+  type: json
+  content: "{{payload}}"
+scripts:
+  - type: beforeRequest
+    code: "let title = pm.variables.replaceIn('{{$randomProductName}}');\r
+
+      let description = pm.variables.replaceIn('{{$randomLoremSentences}}');\r
+
+      let price = pm.variables.replaceIn('{{$randomInt}}');\r
+
+      let city = pm.variables.replaceIn('{{$randomCity}}');\r
+
+      \r
+
+      let obj = {\r
+
+      \    title,\r
+
+      \    description,\r
+
+      \    price: Number(price),\r
+
+      \    city\r
+
+      };\r
+
+      \r
+
+      // console.log(obj);\r
+
+      // console.log(typeof obj.price); // number\r
+
+      \r
+
+      pm.variables.set(\"payload\", JSON.stringify(obj));"
+    language: text/javascript
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"have valid response object\", function () {\r
+
+      \    pm.expect(response).to.ownProperty(\"id\");\r
+
+      })\r
+
+      \r
+
+      pm.test(\"have valid status code\", function () {\r
+
+      \    pm.expect(pm.response.code).to.equal(201);\r
+
+      })\r
+
+      \r
+
+      if (pm.response.to.be.success) {\r
+
+      \    pm.collectionVariables.set(\"productId\", response.id);\r
+
+      }\r
+
+      \r\n"
+    language: text/javascript
+order: 3000
