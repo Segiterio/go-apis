@@ -1,0 +1,202 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Testing API",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "{{BASE_URL}}"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "constraints": {
+                    "type": "object",
+                    "properties": {
+                      "target": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "min": {
+                            "type": "integer"
+                          },
+                          "max": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "nums": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "minLenght": {
+                            "type": "integer"
+                          },
+                          "maxLength": {
+                            "type": "integer"
+                          },
+                          "min": {
+                            "type": "integer"
+                          },
+                          "max": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "numberOfOutputs": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "constraints": {
+                  "target": {
+                    "type": "int",
+                    "min": -1000000000,
+                    "max": 100000000
+                  },
+                  "nums": {
+                    "type": "intArray",
+                    "minLenght": 1,
+                    "maxLength": 200,
+                    "min": -10000,
+                    "max": 10000
+                  }
+                },
+                "numberOfOutputs": 6
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listings": {
+      "get": {
+        "summary": "Get listings",
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "constraints": {
+                    "type": "object",
+                    "properties": {
+                      "target": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "min": {
+                            "type": "integer"
+                          },
+                          "max": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "nums": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "minLenght": {
+                            "type": "integer"
+                          },
+                          "maxLength": {
+                            "type": "integer"
+                          },
+                          "min": {
+                            "type": "integer"
+                          },
+                          "max": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "numberOfOutputs": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "constraints": {
+                  "target": {
+                    "type": "int",
+                    "min": -1000000000,
+                    "max": 100000000
+                  },
+                  "nums": {
+                    "type": "intArray",
+                    "minLenght": 1,
+                    "maxLength": 200,
+                    "min": -10000,
+                    "max": 10000
+                  }
+                },
+                "numberOfOutputs": 6
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Listings",
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "{{payload}}"
+            }
+          }
+        }
+      }
+    },
+    "/listings/{id}": {
+      "get": {
+        "summary": "Get Listing",
+        "responses": {}
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "{{productId}}"
+        }
+      ],
+      "delete": {
+        "summary": "Delete Listings",
+        "responses": {}
+      }
+    }
+  }
+}
