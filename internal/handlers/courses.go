@@ -17,6 +17,8 @@ type Item struct {
 	Image       Image  `json:"image"`
 }
 
+// gu
+
 type CoursesData struct {
 	Development []Item `json:"Development"`
 	Business    []Item `json:"Business"`
