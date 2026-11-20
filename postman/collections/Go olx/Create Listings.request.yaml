@@ -1,43 +1,38 @@
 $kind: http-request
-url: "{{BASE_URL}}/listings"
+description: ""
+url: "{{baseUrl}}/listings"
 method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
 body:
   type: json
-  content: "{{payload}}"
+  content: |-
+    {
+      "title": "string",
+      "description": "string",
+      "city": "string",
+      "price": 9737.117943641308
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    }
 scripts:
-  - type: beforeRequest
-    code: "let title = pm.variables.replaceIn('{{$randomProductName}}');\r
-
-      let description = pm.variables.replaceIn('{{$randomLoremSentences}}');\r
-
-      let price = pm.variables.replaceIn('{{$randomInt}}');\r
-
-      let city = pm.variables.replaceIn('{{$randomCity}}');\r
-
-      \r
-
-      let obj = {\r
-
-      \    title,\r
-
-      \    description,\r
-
-      \    price: Number(price),\r
-
-      \    city\r
-
-      };\r
-
-      \r
-
-      // console.log(obj);\r
-
-      // console.log(typeof obj.price); // number\r
-
-      \r
-
-      pm.variables.set(\"payload\", JSON.stringify(obj));"
-    language: text/javascript
   - type: afterResponse
     code: "let response = pm.response.json();\r
 
@@ -67,4 +62,5 @@ scripts:
 
       \r\n"
     language: text/javascript
+examples: ./.resources/Create Listings.resources/examples
 order: 3000

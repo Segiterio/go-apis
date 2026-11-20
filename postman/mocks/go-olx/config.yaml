@@ -1,0 +1,15 @@
+id: 01a1d2c0-f7a8-7539-9257-09bd99361a2e
+version: 1
+name: Go olx
+slug: new-mock-23a1c
+enableSession: true
+protocol: http
+port: 4500
+autoRestartOnChange: true
+logging:
+  level: verbose
+  showBody: true
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

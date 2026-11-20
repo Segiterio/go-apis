@@ -1,0 +1,72 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/listings"
+  method: GET
+  headers:
+    Accept: application/json
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "string",
+          "title": "string",
+          "price": 5042.940969261199,
+          "description": "string",
+          "city": "string",
+          "created_at": "string"
+        },
+        {
+          "id": "string",
+          "title": "string",
+          "price": 1318.6778677717625,
+          "description": "string",
+          "city": "string",
+          "created_at": "string"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier of a item"
+            },
+            "title": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "description": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "price",
+            "description",
+            "city",
+            "created_at"
+          ]
+        }
+      }
+order: 1000

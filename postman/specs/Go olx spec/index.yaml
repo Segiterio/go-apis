@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Go olx
+  version: 1.0.0
+  description: "It is learning"
+servers:
+  - url: "{{url}}"
+paths:
+  /health:
+    get:
+      summary: Health
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/health"
+  /listings:
+    get:
+      summary: Get listings
+      responses:
+        "200":
+          description: All listings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/item"
+    post:
+      summary: Create Listings
+      responses:
+        "201":
+          description: Create item response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    $ref: "#/components/schemas/id"
+                  title:
+                    type: string
+                  created_at:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                city:
+                  type: string
+                price:
+                  type: number
+  /listings/{id}:
+    get:
+      summary: Get Listing
+      responses:
+        "200":
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/item"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "{{productId}}"
+    delete:
+      summary: Delete Listings
+      responses:
+        "204":
+          description: Delete response
+
+components:
+  schemas:
+    health:
+      description: The health responses
+      type: object
+      required:
+        - "status"
+      properties:
+        status:
+          type: string
+          enum:
+            - "ok"
+    id:
+      description: The unique identifier of a item
+      type: string
+    item:
+      type: object
+      required:
+        - id
+        - title
+        - price
+        - description
+        - city
+        - created_at
+      properties:
+        id:
+          $ref: "#/components/schemas/id"
+        title:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        city:
+          type: string
+        created_at:
+          type: string

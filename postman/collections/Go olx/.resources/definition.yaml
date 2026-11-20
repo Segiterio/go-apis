@@ -1,4 +1,19 @@
 $kind: collection
+description: It is learning
 variables:
-  BASE_URL: ""
-  productId: ""
+  - key: BASE_URL
+    value: ""
+    disabled: true
+    secret: false
+  - key: productId
+    value: ""
+    disabled: false
+    secret: false
+  - key: baseUrl
+    value: "{{url}}"
+    disabled: false
+    secret: false
+  - key: url
+    value: ""
+    disabled: false
+    secret: false

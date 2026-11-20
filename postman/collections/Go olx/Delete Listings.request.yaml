@@ -1,9 +1,12 @@
 $kind: http-request
-url: "{{BASE_URL}}/listings/:id"
+description: ""
+url: "{{baseUrl}}/listings/:id"
 method: DELETE
 pathVariables:
   - key: id
     value: "{{productId}}"
+    disabled: false
+    description: ""
     $type: |-
       {
         "type": "object",
@@ -16,6 +19,9 @@ pathVariables:
           "value"
         ]
       }
+body:
+  type: text
+  content: ""
 scripts:
   - type: beforeRequest
     code: "pm.test(\"Product should not empty\", function() {\r
@@ -26,4 +32,5 @@ scripts:
 
       })"
     language: text/javascript
+examples: ./.resources/Delete Listings.resources/examples
 order: 5000

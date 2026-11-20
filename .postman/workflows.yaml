@@ -5,14 +5,18 @@
 # This file is declarative metadata and does not execute workflows by itself.
 workflows:
   syncSpecToCollection:
-    - spec: ../postman/specs/Testing API/Testing API.json
+    - spec: ../postman/specs/Go olx spec/index.yaml
       collection: ../postman/collections/Go olx
       options:
-        syncExamples: false
-        deleteOrphanedRequests: false
+        syncExamples: true
+        deleteOrphanedRequests: true
+        folderStrategy: Tags
+        nestedFolderHierarchy: true
   syncCollectionToSpec:
-    - spec: ../postman/specs/Testing API/Testing API.json
+    - spec: ../postman/specs/Go olx spec/index.yaml
       collection: ../postman/collections/Go olx
       options:
-        syncExamples: false
-        deleteOrphanedRequests: false
+        syncExamples: true
+        deleteOrphanedRequests: true
+        folderStrategy: Tags
+        nestedFolderHierarchy: true

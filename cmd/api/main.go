@@ -18,7 +18,7 @@ func main() {
 	cfg := config.MustLoad()
 
 	DB, err := db.Connect(cfg.DBUrl)
-	
+
 	if err != nil {
 		log.Fatalf("main.db.connect: %v", err)
 	}
@@ -40,6 +40,8 @@ func main() {
 	mux.HandleFunc("GET /listings/{id}", lh.ListItemByID)
 	mux.HandleFunc("DELETE /listings/{id}", lh.Delete)
 	mux.HandleFunc("POST /listings", lh.Create)
+
+	mux.HandleFunc("GET /api/get-top-courses", handlers.Courses)
 
 	server := http.Server{
 		Addr:         ":" + cfg.Port,
